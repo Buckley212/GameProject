@@ -164,11 +164,13 @@ class Zombie {
         this.h = h;
         this.img = img;
     }
+
     draw = () => {
         if(this.health > 0){
             ctx.drawImage(this.img, this.x, this.y, this.w, this.h)
         }
     }
+    
     move = () => {
         if (this.y > 300){
             this.y -=1

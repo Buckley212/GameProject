@@ -1,3 +1,20 @@
+<<<<<<< HEAD
+body {
+    margin: 0 auto;
+}
+
+#startMenu {
+    background-image: url('.resources/assets/zombiebackground1.png');
+    background-size: cover;
+    background-position: center;
+}
+
+#gameStart {
+    width: 150px;
+    height: 50px;
+    background: white;
+}
+=======
 body {
     display: flex;
     justify-content: center;
@@ -47,3 +64,4 @@ canvas{
         z-index: -3;
     }
 }
+>>>>>>> 1d6b1289381144c374af736abd317c76a1e1969d
