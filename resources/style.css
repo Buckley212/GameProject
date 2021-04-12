@@ -7,10 +7,8 @@ body {
 }
 
 canvas{
-    width: 1000px;
-    height: 1000px;
     z-index: 0;
-    /* cursor: none; */
+    cursor: crosshair;
 }
 
 .start {
