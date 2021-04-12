@@ -3,7 +3,7 @@ body {
 }
 
 #startMenu {
-    background-image: url('.resources/assets/zombiebackground1.jpg');
+    background-image: url('.resources/assets/zombiebackground1.png');
     background-size: cover;
     background-position: center;
 }
