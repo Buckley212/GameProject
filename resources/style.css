@@ -1,0 +1,12 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: url('./assets/wp3020536.png');
+    background-size: cover;
+}
+
+canvas{
+    width: 90vw;
+    height: 100vh;
+}
