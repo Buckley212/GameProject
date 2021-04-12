@@ -1,0 +1,15 @@
+body {
+    margin: 0 auto;
+}
+
+#startMenu {
+    background-image: url('.resources/assets/zombiebackground1.jpg');
+    background-size: cover;
+    background-position: center;
+}
+
+#gameStart {
+    width: 150px;
+    height: 50px;
+    background: white;
+}
