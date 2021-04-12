@@ -13,10 +13,10 @@ const player = {
     w: 100,
     h: 100,
     draw: function(){
-        ctx.save();
-        ctx.rotate(1)
+        // ctx.save();
+        // ctx.rotate(1)
         ctx.drawImage(playerImage, this.x - this.w/2, this.y, this.w, this.h)
-        ctx.restore();
+        // ctx.restore();
     }
 }
 
