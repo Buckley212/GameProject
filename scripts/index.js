@@ -1,3 +1,4 @@
+
 const canvas = document.querySelector('canvas');
 let ctx = canvas.getContext('2d');
 
@@ -7,18 +8,42 @@ backgroundImage.src = './resources/assets/gameMap.PNG'
 const playerImage = new Image();
 playerImage.src = './resources/assets/survivor-idle_shotgun_0.png'
 
-const player = {
-    x: canvas.width/2,
-    y: 200,
-    w: 100,
-    h: 100,
-    draw: function(){
-        // ctx.save();
-        // ctx.rotate(1)
-        ctx.drawImage(playerImage, this.x - this.w/2, this.y, this.w, this.h)
-        // ctx.restore();
+
+
+class Player {
+    constructor(ctx, x, y) {
+      this.x = x
+      this.y = y
+
+      this.dest = {
+        x: 0,
+        y: 0
+      }
+
+      this.width = 100
+      this.height = 100
+      this.velocity = 12
+      this.angularVelocity = 7
+      this.rotation = 0
+      this.ctx = ctx
+
+      this.image = playerImage
+    }
+
+    draw = () => {
+      this.ctx.translate(this.x, this.y)
+      this.ctx.rotate(this.rotation + 4.7)
+      this.ctx.drawImage(
+        this.image,
+        -this.width / 2, -this.height / 2,
+        this.width, this.height
+      )
+      this.ctx.rotate(-this.rotation - 4.7)
+      this.ctx.translate(-this.x, -this.y)
     }
 }
+
+let player = new Player(ctx, canvas.width /2, 200);
 
 const background = {
     x: 0,
@@ -39,7 +64,12 @@ function animate() {
     player.draw();
 }
 
-animate()
+let startBtn = document.getElementById('start-btn');
+const startScreen = document.querySelector('.start')
+startBtn.addEventListener('click', function () {
+    startScreen.classList.add('load-fade')
+    animate()
+})
 
 // draw() {
 //     //>>>>>This code gets the coord of the canvas
