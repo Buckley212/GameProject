@@ -93,7 +93,7 @@ class Blood {
     }
     draw() {
         splatter_image.src = this.src;
-        ctx.drawImage(splatter_image, this.x, this.y, 100, 100)
+        ctx.drawImage(splatter_image, this.x, this.y, 200, 200)
     }
 }
 
@@ -163,11 +163,11 @@ function detectCollision(rect1, rect2) {
         rect1.y < rect2.y + rect2.h &&
         rect1.y + rect1.h > rect2.y
       ) {
-        if (rect2.health > 50) {
+        if (rect2.health >= 51) {
             rect2.health -= 50;
             score.points += 5
             bullets.splice(bullets.indexOf(rect1), 1);
-            bloodPools.push(new Blood(rect2.x, rect2.y + 50, bloodimages[Math.floor(Math.random()*bloodimages.length)]))
+            bloodPools.push(new Blood(rect2.x - 50, rect2.y, bloodimages[Math.floor(Math.random()*bloodimages.length)]))
         } 
         else {
             setTimeout(() => {
@@ -175,6 +175,57 @@ function detectCollision(rect1, rect2) {
                 score.points += 10
                 bullets.splice(bullets.indexOf(rect1), 1);
                 zombies.splice(zombies.indexOf(rect2), 1);
+                bloodPools.push(new Blood(rect2.x -50, rect2.y, bloodimages[Math.floor(Math.random()*bloodimages.length)]))
+            }, 0);
+        }
+      }
+  }
+
+  function detectCollision2(rect1, rect2) {
+    if (
+        rect1.x < rect2.x + rect2.w &&
+        rect1.x + rect1.w > rect2.x &&
+        rect1.y < rect2.y + rect2.h &&
+        rect1.y + rect1.h > rect2.y
+      ) {
+        if (rect2.health >= 51) {
+            rect2.health -= 50;
+            score.points += 5
+            bullets.splice(bullets.indexOf(rect1), 1);
+            bloodPools.push(new Blood(rect2.x - 50, rect2.y, bloodimages[Math.floor(Math.random()*bloodimages.length)]))
+        } 
+        else {
+            setTimeout(() => {
+                cash.money += 5
+                score.points += 10
+                bullets.splice(bullets.indexOf(rect1), 1);
+                fastZombies.splice(fastZombies.indexOf(rect2), 1);
+                bloodPools.push(new Blood(rect2.x - 50, rect2.y, bloodimages[Math.floor(Math.random()*bloodimages.length)]))
+            }, 0);
+        }
+      }
+  }
+
+  function detectCollision3(rect1, rect2) {
+    if (
+        rect1.x < rect2.x + rect2.w &&
+        rect1.x + rect1.w > rect2.x &&
+        rect1.y < rect2.y + rect2.h &&
+        rect1.y + rect1.h > rect2.y
+      ) {
+        if (rect2.health >= 51) {
+            rect2.health -= 50;
+            score.points += 5
+            bullets.splice(bullets.indexOf(rect1), 1);
+            bloodPools.push(new Blood(rect2.x + 75, rect2.y + 50, bloodimages[Math.floor(Math.random()*bloodimages.length)]))
+        } 
+        else {
+            setTimeout(() => {
+                cash.money += 5
+                score.points += 10
+                bullets.splice(bullets.indexOf(rect1), 1);
+                tankZombies.splice(tankZombies.indexOf(rect2), 1);
+                bloodPools.push(new Blood(rect2.x + 75, rect2.y + 50, bloodimages[Math.floor(Math.random()*bloodimages.length)]))
             }, 0);
         }
       }
@@ -210,12 +261,61 @@ class Zombie {
     }
 }
 
+class FastZ extends Zombie {
+    constructor(x, y, w, h, img){
+        super(x, y, w, h, img);
+        this.health = 50;
+    }
+    draw = () => {
+        if(this.health > 0){
+            ctx.drawImage(this.img, this.x, this.y, this.w, this.h)
+        }
+    }
+    move = () => {
+        if (this.y > 300){
+            this.y -= 5
+        }
+        else {
+            this.y -= 0;
+        }
+    }
+}
+
+class TankZ extends Zombie {
+    constructor(x, y, w, h, img){
+        super(x, y, w, h, img);
+        this.health = 1000;
+    }
+    draw = () => {
+        if(this.health > 0){
+            ctx.drawImage(this.img, this.x, this.y, this.w, this.h)
+        }
+    }
+    move = () => {
+        if (this.y > 300){
+            this.y -= 0.1;
+        }
+        else {
+            this.y -= 0;
+        }
+    }
+}
+
+let tankZombies = [];
 let zombies = [];
+let fastZombies = [];
 
 setInterval(function () {
-    zombies.push(new Zombie(Math.floor(Math.random()*canvas.width), canvas.height, 100, 100, zombie_image))
+    zombies.push(new Zombie(Math.floor(Math.random()*canvas.width - 50), canvas.height, 100, 100, zombie_image))
 }, 3000)
 
+setInterval(function (){
+    fastZombies.push(new FastZ(Math.floor(Math.random()*canvas.width), canvas.height, 75, 75, zombie_image))
+}, 10000)
+
+setInterval(function (){
+    tankZombies.push(new TankZ(Math.floor(Math.random()*canvas.width), canvas.height, 300, 300, zombie_image))
+}, 30000)
 
 const player = new Player(canvas.width/2 - 20, 200, 100, 100, player_image, player_image_shoot)
 
@@ -248,6 +348,24 @@ function animate() {
             bullet.h = bullet.radius * 2;
             detectCollision(bullet, badguy);
         });
+    })
+    fastZombies.forEach(badguy => {badguy.draw()
+        badguy.move()
+        bullets.forEach((bullet) => {
+        bullet.update();
+        bullet.w = bullet.radius * 2;
+        bullet.h = bullet.radius * 2;
+        detectCollision2(bullet, badguy);
+    });
+    })
+    tankZombies.forEach(badguy => {badguy.draw()
+        badguy.move()
+        bullets.forEach((bullet) => {
+        bullet.update();
+        bullet.w = bullet.radius * 2;
+        bullet.h = bullet.radius * 2;
+        detectCollision3(bullet, badguy);
+    });
     })
     score.draw();
     cash.draw();
