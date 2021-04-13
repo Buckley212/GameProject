@@ -32,8 +32,7 @@ canvas{
     outline: none;
     cursor: pointer;
 }
-<<<<<<< HEAD
-=======
+
 body {
     display: flex;
     justify-content: center;
@@ -82,7 +81,6 @@ canvas{
         z-index: -3;
     }
 }
-<<<<<<< HEAD
 
 
 
@@ -376,11 +374,7 @@ canvas{
     height:500px;
     width: auto;
     margin
-  }
-=======
->>>>>>> 1d6b1289381144c374af736abd317c76a1e1969d
->>>>>>> 9bb462362eff652174365723c5629d5ce86a5d4d
-=======
+}
 
 .load-fade{
     animation: start-fade 1s ease-in-out forwards;
@@ -396,4 +390,4 @@ canvas{
         z-index: -3;
     }
 }
->>>>>>> ffd6accbbd37dc08ba610f5bf42d1a73a062b8ad
+
