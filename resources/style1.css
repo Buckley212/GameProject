@@ -1,12 +1,12 @@
 /* code for beginning.html - joey*/
 body {
     display: flex;
-    display:inline-block
+    display:inline-block;
     justify-content: center;
     margin: 0px;
     padding: 0px;
     background-color: black;
-    background-image: url(/resources/assets/wp3020536.png);
+    background-image: url(/resources/assets/zombiebackground2.jpg);
     background-repeat: no-repeat;
   }
   
