@@ -217,7 +217,7 @@ function detectCollision(rect1, rect2) {
             rect2.health -= 50;
             score.points += 5
             bullets.splice(bullets.indexOf(rect1), 1);
-            bloodPools.push(new Blood(rect2.x - 100, rect2.y + 50, bloodimages[Math.floor(Math.random()*bloodimages.length)]))
+            bloodPools.push(new Blood(rect2.x + 75, rect2.y + 50, bloodimages[Math.floor(Math.random()*bloodimages.length)]))
         } 
         else {
             setTimeout(() => {
@@ -225,7 +225,7 @@ function detectCollision(rect1, rect2) {
                 score.points += 10
                 bullets.splice(bullets.indexOf(rect1), 1);
                 tankZombies.splice(tankZombies.indexOf(rect2), 1);
-                bloodPools.push(new Blood(rect2.x, rect2.y + 50, bloodimages[Math.floor(Math.random()*bloodimages.length)]))
+                bloodPools.push(new Blood(rect2.x + 75, rect2.y + 50, bloodimages[Math.floor(Math.random()*bloodimages.length)]))
             }, 0);
         }
       }
