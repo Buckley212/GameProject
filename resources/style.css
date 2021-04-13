@@ -1,19 +1,38 @@
-<<<<<<< HEAD
 body {
-    margin: 0 auto;
-}
-
-#startMenu {
-    background-image: url('.resources/assets/zombiebackground1.png');
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: url('./assets/wp3020536.png');
     background-size: cover;
-    background-position: center;
+    height: 100vh;
+    width: 100vw;
 }
 
-#gameStart {
-    width: 150px;
-    height: 50px;
-    background: white;
+canvas{
+    z-index: 0;
+    cursor: crosshair;
 }
+
+.start {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    z-index: 3;
+    height: 100vh;
+    width: 100vw;
+    background: url('./assets/zombiebackground1.png');
+    background-size: cover;
+}
+
+#start-btn {
+    background: none;
+    border: none;
+    margin-top: 10%;
+    outline: none;
+    cursor: pointer;
+}
+<<<<<<< HEAD
 =======
 body {
     display: flex;
@@ -361,3 +380,20 @@ canvas{
 =======
 >>>>>>> 1d6b1289381144c374af736abd317c76a1e1969d
 >>>>>>> 9bb462362eff652174365723c5629d5ce86a5d4d
+=======
+
+.load-fade{
+    animation: start-fade 1s ease-in-out forwards;
+}
+
+@keyframes start-fade {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+        display: none;
+        z-index: -3;
+    }
+}
+>>>>>>> ffd6accbbd37dc08ba610f5bf42d1a73a062b8ad
