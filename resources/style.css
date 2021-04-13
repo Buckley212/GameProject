@@ -67,6 +67,26 @@ canvas{
     cursor: pointer;
 }
 
+button {
+    display:flex;
+    justify-content: center;
+    background-color: white;
+    border-radius: 10px;
+    border: 4px double black;
+    color: #eeeeee;
+    text-align: center;
+    font-size: 28px;
+    padding: 20px;
+    width: 200px;
+    -webkit-transition: all 0.5s;
+    -moz-transition: all 0.5s;
+    -o-transition: all 0.5s;
+    transition: all 0.5s;
+    cursor: pointer;
+    margin: 5px;  
+    color: black;
+}
+
 .load-fade{
     animation: start-fade 1s ease-in-out forwards;
 }
