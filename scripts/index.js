@@ -13,9 +13,9 @@ zombie_image.src = './resources/assets/zombie.png'
 
 let gMouseX = 0;
 let gMouseY = 0;
-let gShipAngleInRads = 0;
-let centerOfShipX = 0;
-let centerOfShipY = 0;
+let gPlayerAngleInRads = 0;
+let centerOfPlayerX = 0;
+let centerOfPlayerY = 0;
 let actualMouseX = 0;
 let actualMouseY = 0;
 
@@ -37,17 +37,17 @@ class Player {
 
         let actualMouseX = gMouseX - canvasXY.x;
         let actualMouseY = gMouseY - canvasXY.y;
-        let centerOfShipX = this.x + 50;
-        let centerOfShipY = this.y + 50;
+        let centerOfPlayerX = this.x + 50;
+        let centerOfPlayerY = this.y + 50;
     
-        gShipAngleInRads = Math.atan2(
-          actualMouseY - centerOfShipY,
-          actualMouseX - centerOfShipX
+        gPlayerAngleInRads = Math.atan2(
+          actualMouseY - centerOfPlayerY,
+          actualMouseX - centerOfPlayerX
         );
     
-        ctx.translate(centerOfShipX, centerOfShipY);
-        ctx.rotate(gShipAngleInRads + (90 * Math.PI) / 180);
-        ctx.translate(-centerOfShipX, -centerOfShipY);
+        ctx.translate(centerOfPlayerX, centerOfPlayerY);
+        ctx.rotate(gPlayerAngleInRads + (90 * Math.PI) / 180);
+        ctx.translate(-centerOfPlayerX, -centerOfPlayerY);
         ctx.drawImage(this.img, this.x, this.y, this.w, this.h);
         ctx.setTransform(1, 0, 0, 1, 0, 0);
         
@@ -85,13 +85,13 @@ addEventListener("click", (event) => {
   let actualMouseClickX = event.clientX - canvasXY.x;
   let actualMouseClickY = event.clientY - canvasXY.y;
 
-  let centerShipX = player.x + 52;
-  let centerShipY = player.y + 70;
+  let centerPlayerX = player.x + 52;
+  let centerPlayerY = player.y + 70;
 
 
   const angle = Math.atan2(
-    actualMouseClickY - centerShipY,
-    actualMouseClickX - centerShipX
+    actualMouseClickY - centerPlayerY,
+    actualMouseClickX - centerPlayerX
   );
   const velocity = {
     x: Math.cos(angle),
