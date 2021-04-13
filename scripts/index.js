@@ -11,6 +11,9 @@ player_image.src = './resources/assets/survivor-idle_shotgun_0.png'
 const zombie_image = new Image();
 zombie_image.src = './resources/assets/zombie.png'
 
+const splatter_image = new Image();
+const bloodimages = ['./resources/assets/bloodPools/blood-splatter1.png','./resources/assets/bloodPools/blood-splatter3.png','./resources/assets/bloodPools/blood-splatter4.png','./resources/assets/bloodPools/blood-splatter5.png']
+
 let gMouseX = 0;
 let gMouseY = 0;
 let gPlayerAngleInRads = 0;
@@ -54,9 +57,23 @@ class Player {
     }
 }
 
+class Blood {
+    constructor(x, y, src) {
+        this.x = x;
+        this.y = y;
+        this.src = src;
+    }
+    draw() {
+        splatter_image.src = this.src;
+        ctx.drawImage(splatter_image, this.x, this.y, 100, 100)
+    }
+}
+
+const bloodPools = [];
+
 let bulletSpeed = 9;
 
-class Laser {
+class Bullet {
     constructor(x, y, radius, color, velocity) {
       this.x = x;
       this.y = y;
@@ -98,14 +115,14 @@ addEventListener("click", (event) => {
     y: Math.sin(angle),
   };
   bullets.push(
-    new Laser(
+    new Bullet(
       player.x + 52,
       player.y + 70,
       5,
       `darkGrey`,
       velocity
     )
-  );
+  )
 });
 
 function detectCollision(rect1, rect2) {
@@ -126,33 +143,40 @@ function detectCollision(rect1, rect2) {
         }, 0);
       }
     }
-  }
+}
   
-  function detectCollision2(rect1, rect2) {
+function detectCollision2(rect1, rect2) {
     if (
-      rect1.x < rect2.x + rect2.w &&
-      rect1.x + rect1.w > rect2.x &&
-      rect1.y < rect2.y + rect2.h &&
-      rect1.y + rect1.h > rect2.y) {
-        setTimeout(() => {
+        rect1.x < rect2.x + rect2.w &&
+        rect1.x + rect1.w > rect2.x &&
+        rect1.y < rect2.y + rect2.h &&
+        rect1.y + rect1.h > rect2.y
+      ) {
+        if (rect2.health > 50) {
+          rect2.health -= 50;
           bullets.splice(bullets.indexOf(rect1), 1);
-          zombies.splice(zombies.indexOf(rect2), 1);
-        }, 0);
+          bloodPools.push(new Blood(rect2.x, rect2.y + 50, bloodimages[Math.floor(Math.random()*bloodimages.length)]))
+        } else {
+          setTimeout(() => {
+            bullets.splice(bullets.indexOf(rect1), 1);
+            zombies.splice(zombies.indexOf(rect2), 1);
+          }, 0);
+        }
       }
-    }
+  }
 
-  function detectCollision3(rect1, rect2) {
-    if (
-      rect1.x < rect2.x + rect2.w &&
-      rect1.x + rect1.w > rect2.x &&
-      rect1.y < rect2.y + rect2.h &&
-      rect1.y + rect1.h > rect2.y) {
+function detectCollision3(rect1, rect2) {
+  if (
+    rect1.x < rect2.x + rect2.w &&
+    rect1.x + rect1.w > rect2.x &&
+    rect1.y < rect2.y + rect2.h &&
+    rect1.y + rect1.h > rect2.y) {
         setTimeout(() => {
-          bullets.splice(bullets.indexOf(rect1), 1);
-          zombies.splice(zombies.indexOf(rect2), 1);
+            bullets.splice(bullets.indexOf(rect1), 1);
+            zombies.splice(zombies.indexOf(rect2), 1);
         }, 0);
-      }
     }
+}
   
 
 class Zombie {
@@ -208,6 +232,9 @@ function animate() {
     ctx.clearRect(0,0,canvas.width,canvas.height)
     background.draw();
     player.draw();
+    bloodPools.forEach(pool => {
+        pool.draw()
+    })
     zombies.forEach(badguy => {
         badguy.draw()
         badguy.move()
