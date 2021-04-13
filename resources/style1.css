@@ -1,7 +1,7 @@
 /* code for beginning.html - joey*/
 body {
     display: flex;
-    display:inline-block
+    display:inline-block;
     justify-content: center;
     margin: 0px;
     padding: 0px;
